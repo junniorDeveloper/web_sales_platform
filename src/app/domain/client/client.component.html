@@ -1,0 +1,97 @@
+<h1>Registros de Clientes</h1>
+<hr>
+
+<button mat-raised-button color="primary" class="add-client-button" (click)="openDialog()">Agregar Cliente</button>
+<button mat-button class="add-lista-button" (click)="toggleList()">Listar {{ showActive ? 'Inactivos' : 'Activos' }}</button>
+
+
+<hr class="horizontal-line">
+
+<div class="search-filters">
+  <div class="filters-left">
+    <mat-form-field class="search">
+      <input matInput placeholder="Buscar cliente" [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange($event)">
+    </mat-form-field>
+
+    <mat-form-field class="document-type">
+      <mat-select placeholder="Tipo de Documento" [(ngModel)]="documentTypeFilter" (selectionChange)="onDocumentTypeChange($event)">
+        <mat-option value="">Todos</mat-option>
+        <mat-option value="DNI">DNI</mat-option>
+        <mat-option value="CNE">CNE</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="export-button-container">
+    <button mat-button [matMenuTriggerFor]="exportMenu">Exportar</button>
+    <mat-menu #exportMenu="matMenu">
+      <button mat-menu-item (click)="exportData('xls')">Exportar a XLS</button>
+      <button mat-menu-item (click)="exportData('csv')">Exportar a CSV</button>
+      <button mat-menu-item >Exportar a PDF</button>
+    </mat-menu>
+  </div>
+</div>
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+
+  <!-- Sex Column -->
+  <ng-container matColumnDef="sex">
+    <th mat-header-cell *matHeaderCellDef> Genero </th>
+    <td mat-cell *matCellDef="let client"> {{client.sex}} </td>
+  </ng-container>
+
+  <!-- Names Column -->
+  <ng-container matColumnDef="names">
+    <th mat-header-cell *matHeaderCellDef> Nombres </th>
+    <td mat-cell *matCellDef="let client"> {{client.names}} </td>
+  </ng-container>
+
+  <!-- Surnames Column -->
+  <ng-container matColumnDef="surnames">
+    <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+    <td mat-cell *matCellDef="let client"> {{client.surnames}} </td>
+  </ng-container>
+
+  <!-- Document Type Column -->
+  <ng-container matColumnDef="documentType">
+    <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
+    <td mat-cell *matCellDef="let client"> {{client.documentType}} </td>
+  </ng-container>
+
+  <!-- Document Number Column -->
+  <ng-container matColumnDef="documentNumber">
+    <th mat-header-cell *matHeaderCellDef> Numero Documento </th>
+    <td mat-cell *matCellDef="let client"> {{client.documentNumber}} </td>
+  </ng-container>
+
+  <!-- Cellphone Column -->
+  <ng-container matColumnDef="cellphone">
+    <th mat-header-cell *matHeaderCellDef> Celular </th>
+    <td mat-cell *matCellDef="let client"> {{client.cellphone}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Correo Electronico </th>
+    <td mat-cell *matCellDef="let client"> {{client.email}} </td>
+  </ng-container>
+
+ <!-- Actions Column -->
+<ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef> Acciones </th>
+  <td mat-cell *matCellDef="let client">
+    <button mat-button (click)="accionCliente(client)">
+      {{ client.active === 'A' ? 'Delete' : 'Restaurar' }}
+    </button>
+
+    <button mat-button (click)="openDialog(client)">Edit</button>
+  </td>
+</ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>

@@ -1,0 +1,51 @@
+<h1>Registros de Ventas</h1>
+<hr>
+
+<button mat-raised-button color="primary" class="add-sale-button">Agregar Venta</button>
+
+<hr class="horizontal-line">
+
+<mat-form-field class="search">
+  <input matInput placeholder="Buscar venta" [(ngModel)]="searchTerm" (ngModelChange)="filterSales()">
+</mat-form-field>
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Data Time Column -->
+  <ng-container matColumnDef="dataTime">
+    <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td mat-cell *matCellDef="let sale"> {{sale.dataTime | date: 'short'}} </td>
+  </ng-container>
+
+  <!-- ID Seller Column -->
+  <ng-container matColumnDef="idSeller">
+    <th mat-header-cell *matHeaderCellDef> Numero de venta </th>
+    <td mat-cell *matCellDef="let sale"> {{sale.idSeller}} </td>
+  </ng-container>
+
+  <!-- Type Pay Column -->
+  <ng-container matColumnDef="typePay">
+    <th mat-header-cell *matHeaderCellDef> Tipo de Pago </th>
+    <td mat-cell *matCellDef="let sale"> {{sale.typePay}} </td>
+  </ng-container>
+
+  <!-- Total Sale Column -->
+  <ng-container matColumnDef="totalSale">
+    <th mat-header-cell *matHeaderCellDef> Total de Venta </th>
+    <td mat-cell *matCellDef="let sale"> {{sale.totalSale | currency}} </td>
+  </ng-container>
+
+  <!-- Preview Column -->
+  <ng-container matColumnDef="preview">
+    <th mat-header-cell *matHeaderCellDef> Vista previa </th>
+    <td mat-cell *matCellDef="let sale">
+      <!-- Aquí puedes colocar el contenido para la vista previa -->
+      <button mat-button (click)="showPreview(sale)">Ver</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>

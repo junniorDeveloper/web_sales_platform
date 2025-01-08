@@ -1,0 +1,85 @@
+<mat-dialog-content>
+  <h3>Formulario de Cliente</h3>
+  <form [formGroup]="clientForm" (ngSubmit)="saveClient()">
+    <mat-form-field>
+      <mat-label>Género</mat-label>
+      <mat-select formControlName="sex">
+        <mat-option value="M">Masculino</mat-option>
+        <mat-option value="F">Femenino</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+<!-- NOMBRES -->
+<mat-form-field>
+  <input matInput placeholder="Nombres" formControlName="names" (input)="clientForm.get('names')?.markAsTouched()"
+    (paste)="onPaste($event)">
+  <mat-error *ngIf="clientForm.get('names')?.touched && clientForm.get('names')?.hasError('required')">
+    El nombre es requerido
+  </mat-error>
+  <mat-error *ngIf="clientForm.get('names')?.touched && clientForm.get('names')?.hasError('pattern')">
+    Solo se permiten letras y espacios
+  </mat-error>
+</mat-form-field>
+
+<!-- APELLIDOS -->
+<mat-form-field>
+  <input matInput placeholder="Apellidos" formControlName="surnames"
+    (input)="clientForm.get('surnames')?.markAsTouched()" (paste)="onPaste($event)">
+  <mat-error *ngIf="clientForm.get('surnames')?.touched && clientForm.get('surnames')?.hasError('required')">
+    Los apellidos son requeridos
+  </mat-error>
+  <mat-error *ngIf="clientForm.get('surnames')?.touched && clientForm.get('surnames')?.hasError('pattern')">
+    Solo se permiten letras y espacios
+  </mat-error>
+</mat-form-field>
+
+
+    <!-- Tipo de Documento -->
+    <mat-form-field>
+      <mat-label>Tipo de Documento</mat-label>
+      <mat-select formControlName="documentType">
+        <mat-option value="DNI">DNI</mat-option>
+        <mat-option value="CNE">CNE</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Número de Documento -->
+    <mat-form-field>
+      <input matInput placeholder="Número de Documento" formControlName="documentNumber"
+        (input)="clientForm.get('documentNumber')?.markAsTouched()">
+      <mat-error
+        *ngIf="clientForm.get('documentNumber')?.touched && clientForm.get('documentNumber')?.hasError('pattern')">
+        Solo se permiten números
+      </mat-error>
+      <mat-error
+        *ngIf="clientForm.get('documentNumber')?.touched && clientForm.get('documentNumber')?.hasError('maxlength')">
+        {{ getClientNumberErrorMessage() }}
+      </mat-error>
+    </mat-form-field>
+
+
+    <!-- Celular -->
+    <mat-form-field>
+      <input matInput placeholder="Celular" formControlName="cellphone"
+        (input)="clientForm.get('cellphone')?.markAsTouched()">
+      <mat-error *ngIf="clientForm.get('cellphone')?.touched && clientForm.get('cellphone')?.hasError('pattern')">
+        El número de celular debe comenzar con 9 y tener exactamente 9 dígitos
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Correo -->
+    <mat-form-field>
+      <input matInput placeholder="Correo Electrónico" formControlName="email"
+        (input)="clientForm.get('email')?.markAsTouched()">
+
+      <mat-error *ngIf="clientForm.get('email')?.touched && clientForm.get('email')?.hasError('pattern')">
+        El correo electrónico debe contener &#64; y .
+      </mat-error>
+    </mat-form-field>
+
+
+
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+    <button mat-button type="button" (click)="closeDialog()">Cancelar</button>
+  </form>
+</mat-dialog-content>

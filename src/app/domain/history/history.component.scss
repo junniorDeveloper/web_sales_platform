@@ -1,0 +1,46 @@
+/* styles.scss */
+
+/* Estilos generales */
+h1 {
+  font-size: 20px;
+}
+
+.add-sale-button {
+  margin-top: 25px; /* Espaciado inferior para separar del campo de búsqueda */
+}
+
+.horizontal-line {
+  border: none;
+  border-top: 0px solid #ffffff00;
+  margin: 10px;
+}
+
+.search {
+  height: 70px;
+  width: 300px;
+}
+
+/* Estilos para las celdas de la tabla */
+table th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+}
+
+table th {
+  background-color: #e8e8e8;
+  color: #000000;
+}
+
+td{
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+tr:hover {
+  background-color: #eeeded;
+}
+

@@ -1,0 +1,123 @@
+<h1>Punto de Venta</h1>
+<hr>
+
+<!-- Formulario para los detalles de la venta -->
+<form [formGroup]="saleForm" (ngSubmit)="onSubmit()" class="form-container">
+  <div class="sale-details">
+    <div class="column left">
+
+      <!-- ID de Persona -->
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Vendedor" formControlName="personIdPerson" [matAutocomplete]="autoUser" [readonly]="formLocked">
+        <mat-autocomplete #autoUser="matAutocomplete">
+          <mat-option *ngFor="let user of filteredUsers | async" [value]="user?.id_person">
+            {{ user?.name }} {{ user?.      surnames }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- Tipo de recibo -->
+      <mat-form-field class="full-width">
+        <mat-label>Tipo recibo</mat-label>
+        <mat-select formControlName="receiptType" [disabled]="formLocked">
+          <mat-option value="Boleta">Boleta</mat-option>
+          <mat-option value="Factura">Factura</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Tipo de pago -->
+      <mat-form-field class="full-width">
+        <mat-label>Tipo pago</mat-label>
+        <mat-select formControlName="typePay" [disabled]="formLocked">
+          <mat-option value="Efectivo">Efectivo</mat-option>
+          <mat-option value="Tarjeta">Tarjeta</mat-option>
+          <mat-option value="Yape">Yape</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div class="column right">
+
+      <!-- Cliente -->
+      <div class="client-field">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Cliente" formControlName="clientIdentifier" [matAutocomplete]="autoClient" [readonly]="formLocked">
+          <mat-autocomplete #autoClient="matAutocomplete">
+            <mat-option *ngFor="let client of filteredClients | async" [value]="client?.identifier">
+              {{ client?.names }} {{ client?.surnames }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="add-client-button" (click)="openDialog()" [disabled]="formLocked">
+          <mat-icon>add_circle</mat-icon>Cliente
+        </button>
+      </div>
+
+      <!-- Número de recibo -->
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Número recibo" formControlName="receiptNumber" [readonly]="formLocked">
+      </mat-form-field>
+
+      <!-- Total de la venta -->
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Total Venta" formControlName="totalSale" readonly>
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <!-- Detalles de la venta -->
+  <h4>Detalles de la Venta</h4>
+  <hr>
+
+  <div class="product-search">
+    <mat-form-field >
+      <input matInput placeholder="Buscar Producto" formControlName="productSearch" [matAutocomplete]="autoProduct">
+      <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct" (optionSelected)="selectedProduct = $event.option.value">
+        <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+          {{ product.names }}   -  (Stock: {{ product.stock }})
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Input de cantidad -->
+    <mat-form-field class="quantity-field">
+      <input matInput type="number" placeholder="Cantidad" formControlName="amount">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="addProduct()">Añadir Producto</button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="productsProductId">
+      <th mat-header-cell *matHeaderCellDef> Producto ID </th>
+      <td mat-cell *matCellDef="let detail"> {{ detail.productsProductId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let detail"> {{ detail.amount }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Precio </th>
+      <td mat-cell *matCellDef="let detail"> {{ detail.price | currency }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let detail">
+        <button mat-icon-button color="warn" (click)="deleteSaleDetail(detail)" [disabled]="formLocked">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="formLocked">Crear Venta</button>
+</form>
+

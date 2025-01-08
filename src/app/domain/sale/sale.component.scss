@@ -1,0 +1,127 @@
+h1 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.sale-details {
+  display: flex;
+
+  .column {
+    width: 50%;
+    padding: 0 10px;
+
+    .full-width {
+      width: 100%;
+      margin-bottom: 0px;
+
+      mat-form-field {
+        width: 100%;
+
+        input {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .sale-details-table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+
+      th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f0f0f0;
+      }
+    }
+
+    .add-button {
+      margin-top: 20px;
+    }
+  }
+
+  .right {
+    padding-left: 20px;
+  }
+}
+
+
+//mis scss
+.client-field {
+  display: flex;
+  align-items: center;
+
+  mat-form-field {
+    flex: 1;
+  }
+
+  .add-client-button {
+    border-radius: 10px;
+    margin-left: 10px;
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+}
+
+
+// Estilos para el componente de venta
+
+h4 {
+  margin-top: 20px; // Espacio arriba del título
+}
+
+/* Estilos para el contenedor principal */
+.product-search {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre los elementos */
+}
+
+/* Estilos para el campo de búsqueda de productos */
+.product-search mat-form-field {
+  width: 49%; /* Ancho del campo de búsqueda */
+}
+
+/* Estilos para el campo de cantidad */
+.product-search .quantity-field {
+  width: 120px; /* Ancho del campo de cantidad */
+}
+
+/* Estilos para el botón de añadir producto */
+.product-search button {
+  margin-bottom: 2%;
+  margin-left: 10px; /* Espacio a la izquierda del botón */
+}
+
+table {
+  width: 100%;
+  margin-top: 20px; // Espacio arriba de la tabla
+  border-collapse: collapse; // Colapsar los bordes de la tabla
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc; // Borde inferior de las celdas
+  }
+
+  th {
+    background-color: #f0f0f0; // Color de fondo del encabezado de la tabla
+  }
+}
+
+button[type="submit"] {
+  margin-top: 20px; // Espacio arriba del botón Crear Venta
+}
+
+

@@ -1,0 +1,61 @@
+<mat-dialog-content *ngIf="venta">
+  <h3>Detalles de la Venta</h3>
+  <div class="sale-details">
+    <div class="column left">
+      <mat-form-field class="full-width">
+        <mat-label>Codigo de la Venta</mat-label>
+        <input matInput [value]="venta.idSeller" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Tipo de Recibo</mat-label>
+        <input matInput [value]="venta.receiptType" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Tipo de Pago</mat-label>
+        <input matInput [value]="venta.typePay" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Nombre del Cliente</mat-label>
+        <input matInput [value]="venta.clienteNombre" readonly>
+      </mat-form-field>
+    </div>
+    <div class="column right">
+      <mat-form-field class="full-width">
+        <mat-label>Fecha y Hora</mat-label>
+        <input matInput [value]="venta.dataTime | date: 'short'" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Número de Recibo</mat-label>
+        <input matInput [value]="venta.receiptNumber" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Total de la Venta</mat-label>
+        <input matInput [value]="venta.totalSale | currency" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>Nombre del Usuario</mat-label>
+        <input matInput [value]="venta.nombreUsuario" readonly>
+      </mat-form-field>
+    </div>
+  </div>
+  <h4>Detalles de la Venta</h4>
+  <table mat-table [dataSource]="venta.saleDetails" class="sale-details-table">
+    <ng-container matColumnDef="productsProductId">
+      <th mat-header-cell *matHeaderCellDef> Producto </th>
+      <td mat-cell *matCellDef="let detail"> {{ detail.nombreProducto }} </td>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let detail"> {{ detail.amount }} </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Precio </th>
+      <td mat-cell *matCellDef="let detail"> {{ detail.price | currency }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['productsProductId', 'amount', 'price']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['productsProductId', 'amount', 'price'];"></tr>
+  </table>
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="closeDialog()">Cerrar</button>
+  </div>
+</mat-dialog-content>

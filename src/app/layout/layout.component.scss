@@ -1,0 +1,56 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+}
+
+.name_empresa{
+  color: rgb(0, 0, 0);
+  margin-left: 10px;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.sidenav .mat-toolbar {
+  background: #f7f7f7;
+  color: black;
+  font-size: 20px;
+  justify-content: center;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #f7f7f7;
+}
+
+.mat-nav-list a.mat-list-item {
+  transition: background-color 0.3s;
+}
+
+.mat-nav-list a.mat-list-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.content {
+  padding: 20px;
+}
+
+.color_menu{
+ background-color: #f7f7f7;
+}
+
+
+
+
+
+
+
+
